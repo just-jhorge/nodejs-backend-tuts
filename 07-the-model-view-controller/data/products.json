@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Book",
+    "imageUrl": "https://cdn.pixabay.com/photo/2020/01/30/17/49/book-4806076_1280.jpg",
+    "description": "This is the description for a book that I am loving. I will read it non-stop till I complete it.",
+    "price": "19.99",
+    "id": "693065"
+  },
+  {
+    "title": "Car",
+    "imageUrl": "https://cdn.pixabay.com/photo/2016/05/18/10/52/buick-1400243_1280.jpg",
+    "description": "I love this car so much, I am going to buy it and use it as my daily driver.",
+    "price": "17299.99",
+    "id": "257078"
+  },
+  {
+    "title": "Laptop",
+    "imageUrl": "https://cdn.pixabay.com/photo/2020/10/21/18/07/laptop-5673901_1280.jpg",
+    "description": "This is the latest macbook laptop that you can get on the market. Please come and buy so I can feed my family. I am going crazy.",
+    "price": "1999.99",
+    "id": "324169"
+  },
+  {
+    "title": "Phone",
+    "imageUrl": "https://cdn.pixabay.com/photo/2022/09/25/22/25/iphone-7479302_1280.jpg",
+    "description": "This is the latest iphone in town. Please come and buy am now.",
+    "price": "799.99",
+    "id": "559612"
+  }
+]

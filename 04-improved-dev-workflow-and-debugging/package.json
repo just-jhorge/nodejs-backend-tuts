@@ -1,0 +1,16 @@
+{
+  "name": "04-improved-dev-workflow-and-debugging",
+  "version": "1.0.0",
+  "description": "complete nodejs guide",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "start-server": "nodemon app.js"
+  },
+  "author": "george afrifa",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

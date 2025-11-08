@@ -32,12 +32,17 @@
             </p>
             <div class="flex gap-2">
               <a
-                href="/admin/edit-product"
+                href="/admin/edit-product/<%= product.id %>?edit=true"
                 class="w-full text-sm border text-center border-emerald-800 text-emerald-800 rounded-md py-2"
               >
                 Edit
               </a>
               <form class="w-full" action="/admin/delete-product" method="POST">
+                <input
+                  type="hidden"
+                  name="productId"
+                  value="<%= product.id %>"
+                />
                 <button
                   type="submit"
                   class="w-full text-sm bg-red-700 text-white rounded-md py-2"

@@ -6,6 +6,17 @@ const rootDir = require("../util/path");
 const p = path.join(rootDir, "data", "cart.json");
 
 module.exports = class Cart {
+  static getCartProducts(cb) {
+    fs.readFile(p, (err, fileContent) => {
+      const cart = JSON.parse(fileContent);
+      if (err) {
+        cb(null);
+      } else {
+        cb(cart);
+      }
+    });
+  }
+
   // We did not use a constructor because we do not wish to create any cart
   // since there will always be a cart for the app
   static addProduct(id, productPrice) {
@@ -56,6 +67,27 @@ module.exports = class Cart {
 
       // We then update the cart file by writing to it.
       fs.writeFile(p, JSON.stringify(cart), (err) => {
+        console.error(err);
+      });
+    });
+  }
+
+  static deleteProduct(id, productPrice) {
+    fs.readFile(p, (err, fileContent) => {
+      if (err) return;
+      const updatedCart = { ...JSON.parse(fileContent) };
+      const product = updatedCart.products.find((prod) => prod.id === id);
+      if (!product) {
+        return;
+      }
+      const productQty = product.qty;
+      updatedCart.products = updatedCart.products.filter(
+        (prod) => prod.id !== id
+      );
+      updatedCart.totalPrice =
+        updatedCart.totalPrice - productPrice * productQty;
+
+      fs.writeFile(p, JSON.stringify(updatedCart), (err) => {
         console.error(err);
       });
     });

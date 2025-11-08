@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
+const Cart = require("./cart.model");
 const rootDir = require("../util/path");
 
 const p = path.join(rootDir, "data", "products.json");
@@ -15,7 +16,8 @@ const getProductsFromFile = (cb) => {
 };
 
 module.exports = class Product {
-  constructor({ title, imageUrl, description, price }) {
+  constructor(id, title, imageUrl, description, price) {
+    this.id = id;
     this.title = title;
     this.imageUrl = imageUrl;
     this.description = description;
@@ -23,12 +25,23 @@ module.exports = class Product {
   }
 
   save() {
-    this.id = Math.floor(100000 + Math.random() * 900000).toString();
     getProductsFromFile((products) => {
-      products.push(this);
-      fs.writeFile(p, JSON.stringify(products), (err) => {
-        console.error(err);
-      });
+      if (this.id) {
+        const existingProduct = products.findIndex(
+          (prod) => prod.id === this.id
+        );
+        const updatedProducts = [...products];
+        updatedProducts[existingProduct] = this;
+        fs.writeFile(p, JSON.stringify(updatedProducts), (err) => {
+          console.error(err);
+        });
+      } else {
+        this.id = Math.floor(100000 + Math.random() * 900000).toString();
+        products.push(this);
+        fs.writeFile(p, JSON.stringify(products), (err) => {
+          console.error(err);
+        });
+      }
     });
   }
 
@@ -40,6 +53,19 @@ module.exports = class Product {
     getProductsFromFile((products) => {
       const product = products.find((p) => p.id === id);
       cb(product);
+    });
+  }
+
+  static deleteById(id) {
+    getProductsFromFile((products) => {
+      const product = products.find((prod) => prod.id === id);
+      const updatedProducts = products.filter((p) => p.id !== id);
+      fs.writeFile(p, JSON.stringify(updatedProducts), (err) => {
+        if (!err) {
+          // Remove the product from the cart
+          Cart.deleteProduct(id, product.price);
+        }
+      });
     });
   }
 };

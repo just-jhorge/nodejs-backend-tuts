@@ -4,8 +4,80 @@
   <body>
     <%- include('../includes/nav.ejs') %>
 
-    <main class="max-w-6xl mx-auto min-h-[calc(100svh-3.5rem)] py-4">
-      <h1 class="text-xl font-semibold mb-5">Edit Product Page</h1>
+    <main
+      class="max-w-6xl mx-auto min-h-[calc(100svh-3.5rem)] flex items-center justify-center"
+    >
+      <div class="w-[45%] border rounded-lg shadow-sm p-6">
+        <h2 class="text-center font-bold mb-4">
+          <% if (editing) { %>Update Product<% } else { %>Add Product<% } %>
+        </h2>
+        <form
+          action="/admin/<% if (editing) { %>edit-product<% } else { %>add-product<% } %>"
+          method="POST"
+        >
+          <div class="mb-5">
+            <label for="title" class="block text-sm text-neutral-500"
+              >Title</label
+            >
+            <input
+              id="title"
+              type="text"
+              name="title"
+              value="<% if(editing) { %><%= product.title %><% }%>"
+              class="w-full h-9 px-2 border border-border rounded-md placeholder:text-sm"
+            />
+          </div>
+          <div class="mb-5">
+            <label for="imageUrl" class="block text-sm text-neutral-500"
+              >Image Url</label
+            >
+            <input
+              id="imageUrl"
+              type="url"
+              name="imageUrl"
+              value="<% if(editing) { %><%= product.imageUrl %><% }%>"
+              class="w-full h-9 px-2 border border-border rounded-md placeholder:text-sm"
+            />
+          </div>
+          <div class="mb-5">
+            <label for="price" class="block text-sm text-neutral-500"
+              >Price</label
+            >
+            <input
+              id="price"
+              type="number"
+              step="0.01"
+              name="price"
+              value="<% if(editing) { %><%= product.price %><% }%>"
+              class="w-full h-9 px-2 border border-border rounded-md placeholder:text-sm"
+            />
+          </div>
+          <div class="mb-5">
+            <label for="description" class="block text-sm text-neutral-500"
+              >Description</label
+            >
+            <textarea
+              id="description"
+              name="description"
+              class="w-full min-h-24 p-2 border border-border rounded-md placeholder:text-sm"
+            >
+<% if(editing) { %><%= product.description %><% }%></textarea
+            >
+          </div>
+          <% if (editing) { %>
+          <input type="hidden" name="productId" value="<%= product.id %>" />
+          <% } %>
+
+          <div class="w-full flex justify-end">
+            <button
+              type="submit"
+              class="px-2 text-sm py-1 rounded-md border border-emerald-800 text-emerald-800 bg-transparent hover:bg-emerald-800 hover:text-white transition-colors duration-200"
+            >
+              <% if (editing) { %>Update Product<% } else { %>Add Product<% } %>
+            </button>
+          </div>
+        </form>
+      </div>
     </main>
   </body>
 </html>

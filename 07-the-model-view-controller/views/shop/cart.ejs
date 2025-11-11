@@ -12,13 +12,21 @@
         <li
           class="w-full flex items-center justify-between gap-3 last:border-0 border-b py-4"
         >
-          <p class="text-lg"><%= p.productData.title %> (<%= p.qty %>)</p>
+          <div class="flex items-center gap-2">
+            <div class="size-12 rounded-md overflow-hidden">
+              <img
+                class="h-full w-full object-cover"
+                src="<%= p.imageUrl %>"
+                alt="<%= p.title %>"
+              />
+            </div>
+            <p><%= p.title %></p>
+          </div>
+          <p>$ <%= p.price %></p>
+          <p><%= p.cartItem.quantity %></p>
+          <p>$ <%= p.cartItem.quantity * p.price %></p>
           <form action="/cart-delete-item" method="post">
-            <input
-              type="hidden"
-              name="productId"
-              value="<%= p.productData.id %>"
-            />
+            <input type="hidden" name="productId" value="<%= p.id %>" />
             <button
               type="submit"
               class="px-5 py-2 bg-red-600 text-white rounded-md"
@@ -29,6 +37,16 @@
         </li>
         <% }) %>
       </ul>
+      <div class="w-full flex justify-end mt-10">
+        <form action="/create-order" method="post">
+          <button
+            type="submit"
+            class="px-5 py-2 bg-emerald-600 text-white rounded-md"
+          >
+            Order Now!
+          </button>
+        </form>
+      </div>
       <% } else { %>
       <h3>No products in cart!</h3>
       <% } %>
